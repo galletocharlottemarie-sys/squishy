@@ -1,0 +1,6 @@
+{
+  "name": "Squishy Haven - Artisanal Squishies Marketplace",
+  "description": "An interactive e-commerce marketplace for premium stress-relief squishies, featuring PayMongo & GCash payments, seller dashboard, AI squishy assistant, and interactive sensory physics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
