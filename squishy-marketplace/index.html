@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Squishiverse | Premium Stress-Relief Squishies</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Supabase JS Client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Custom Styling Rules -->
+  <style>
+    :root {
+      --primary: #FF4B82;
+      --secondary: #2B2D42;
+      --accent: #FFD166;
+      --bg-light: #F8F9FA;
+    }
+    body {
+      background-color: var(--bg-light);
+      color: var(--secondary);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    /* Rule of Thirds Hero Layout */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2rem;
+    }
+    @media (max-width: 768px) {
+      .hero-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+  <!-- 1. HEADER & NAVIGATION -->
+  <header class="bg-white shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <h1 class="text-3xl font-extrabold text-[#FF4B82] tracking-tight">Squishiverse</h1>
+      
+      <!-- Navigational Links -->
+      <nav class="hidden md:flex space-x-8 font-semibold text-gray-700">
+        <a href="#home" class="hover:text-[#FF4B82] transition">Home</a>
+        <a href="#store" class="hover:text-[#FF4B82] transition">Store Page</a>
+        <a href="#about" class="hover:text-[#FF4B82] transition">About Us</a>
+        <a href="#seller" class="hover:text-[#FF4B82] transition">Seller Dashboard</a>
+        <a href="#contact" class="hover:text-[#FF4B82] transition">Contacts</a>
+      </nav>
+
+      <!-- Auth Action -->
+      <button onclick="toggleModal('auth-modal')" class="bg-[#FF4B82] hover:bg-[#e03a6d] text-white font-bold py-2 px-5 rounded-full transition shadow-md">
+        Register / Login
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN BODY / FEATURES -->
+  <main class="max-w-7xl mx-auto px-6 py-8 flex-grow space-y-16">
+
+    <!-- HERO SECTION (Rule of Thirds Design) -->
+    <section id="home" class="hero-grid bg-gradient-to-r from-pink-100 to-purple-100 rounded-3xl p-8 md:p-12 items-center">
+      <!-- 2/3 Width Block -->
+      <div class="space-y-6">
+        <span class="text-sm font-bold uppercase tracking-widest text-[#FF4B82] bg-white px-3 py-1 rounded-full shadow-sm">Premium Squishies</span>
+        <h2 class="text-4xl md:text-6xl font-black text-gray-900 leading-tight">Find Your Ultimate Stress Reliever</h2>
+        <p class="text-lg text-gray-600 max-w-xl">Explore our hand-picked collection of slow-rising, scented, and super squishy toys. Perfect for focus, sensory therapy, or collecting!</p>
+        <!-- CTA BUTTON -->
+        <a href="#store" class="inline-block bg-[#FF4B82] text-white text-lg font-bold py-4 px-8 rounded-2xl shadow-lg hover:scale-105 transition transform">
+          Shop Top Squishies Now →
+        </a>
+      </div>
+      <!-- 1/3 Width Visual Block -->
+      <div class="flex justify-center">
+        <img src="3WqZew-C.jpg" alt="Featured Squishy" class="rounded-2xl shadow-2xl object-cover h-72 w-72 transform rotate-3">
+      </div>
+    </section>
+
+    <!-- STORE PAGE / PRODUCTS DISPLAY -->
+    <section id="store" class="space-y-6">
+      <div class="flex justify-between items-end">
+        <div>
+          <h2 class="text-3xl font-extrabold text-gray-900">Featured Store Items</h2>
+          <p class="text-gray-500">Discover top-selling items from verified squishy creators.</p>
+        </div>
+      </div>
+
+      <!-- Dynamic Product Grid -->
+      <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Products injected via JS -->
+      </div>
+    </section>
+
+    <!-- SELLER DASHBOARD (Submit New Product) -->
+    <section id="seller" class="bg-white p-8 rounded-3xl border border-gray-100 shadow-xl space-y-6">
+      <h2 class="text-2xl font-bold text-gray-900">Seller Dashboard: Add Product</h2>
+      <form id="sell-form" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <input type="text" id="p-title" placeholder="Product Title" required class="p-3 border rounded-xl w-full">
+        <input type="number" id="p-price" placeholder="Price (PHP)" step="0.01" required class="p-3 border rounded-xl w-full">
+        <input type="text" id="p-image" placeholder="Image File/URL (e.g., W1PfStnQ.jpg)" required class="p-3 border rounded-xl w-full">
+        <select id="p-category" class="p-3 border rounded-xl w-full">
+          <option value="Cube">Cube Squishy</option>
+          <option value="Food">Food / Butter</option>
+          <option value="Animals">Animal Set</option>
+        </select>
+        <textarea id="p-desc" placeholder="Product Description" class="p-3 border rounded-xl md:col-span-2 w-full" rows="3" required></textarea>
+        <button type="submit" class="bg-gray-900 hover:bg-black text-white font-bold py-3 px-6 rounded-xl md:col-span-2 transition">
+          Post Product for Sale
+        </button>
+      </form>
+    </section>
+
+    <!-- ABOUT & CONTACT SECTION -->
+    <section id="about" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div id="contact" class="bg-pink-50 p-8 rounded-3xl space-y-4">
+        <h3 class="text-2xl font-bold text-[#FF4B82]">About Squishiverse</h3>
+        <p class="text-gray-600 leading-relaxed">Squishiverse is an open community-driven marketplace built specifically for squishy lovers and creators. Buy directly or start selling your own custom squishies today!</p>
+      </div>
+      <div class="bg-gray-900 text-white p-8 rounded-3xl space-y-4">
+        <h3 class="text-2xl font-bold text-yellow-400">Contact Us</h3>
+        <p class="text-gray-300">Got questions? Reach out via our channels or talk with our Voiceflow AI support bot in the corner!</p>
+        <p>Email: support@squishiverse.com | Phone: +63 912 345 6789</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER & SITEMAP -->
+  <footer class="bg-gray-900 text-gray-400 pt-12 pb-6 mt-16">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 pb-8 border-b border-gray-800">
+      <div>
+        <h4 class="text-xl font-bold text-white mb-4">Squishiverse</h4>
+        <p class="text-sm">Your primary marketplace for authentic stress-relieving squishies and collectible novelties.</p>
+      </div>
+      <!-- SITEMAP -->
+      <div>
+        <h4 class="text-lg font-bold text-white mb-4">Sitemap</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href="#home" class="hover:text-white">Home</a></li>
+          <li><a href="#store" class="hover:text-white">Store Directory</a></li>
+          <li><a href="#seller" class="hover:text-white">Seller Dashboard</a></li>
+          <li><a href="#about" class="hover:text-white">About Us</a></li>
+          <li><a href="#contact" class="hover:text-white">Contact & Support</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-lg font-bold text-white mb-4">Payment Methods</h4>
+        <p class="text-sm">Powered by PayMongo supporting GCash, Maya, and major Credit Cards.</p>
+      </div>
+    </div>
+    <div class="text-center pt-6 text-xs text-gray-500">
+      &copy; 2026 Squishiverse. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- AUTHENTICATION & GCASH REGISTRATION MODAL -->
+  <div id="auth-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+    <div class="bg-white p-8 rounded-3xl max-w-md w-full relative">
+      <button onclick="toggleModal('auth-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">✕</button>
+      <h3 class="text-2xl font-bold mb-4 text-gray-900">User Registration</h3>
+      <form id="register-form" class="space-y-4">
+        <input type="email" id="reg-email" placeholder="Email Address" required class="w-full p-3 border rounded-xl">
+        <input type="password" id="reg-pass" placeholder="Password" required class="w-full p-3 border rounded-xl">
+        <input type="tel" id="reg-gcash" placeholder="GCash Mobile Number (09XXXXXXXXX)" required class="w-full p-3 border rounded-xl">
+        <button type="submit" class="w-full bg-[#FF4B82] text-white py-3 rounded-xl font-bold hover:bg-[#e03a6d]">Register Account</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- VOICEFLOW AI CHATBOT INTEGRATION -->
+  <script type="text/javascript">
+    (function(d, t) {
+        var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+        v.onload = function() {
+          window.voiceflow.chat.load({
+            verify: { projectID: 'YOUR_VOICEFLOW_PROJECT_ID' },
+            url: 'https://general-runtime.voiceflow.com',
+            versionID: 'production'
+          });
+        }
+        v.src = "https://cdn.voiceflow.com/widget/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
+    })(document, 'script');
+  </script>
+
+  <!-- APPLICATION LOGIC & API INTEGRATIONS -->
+  <script>
+    // 1. Initialize Supabase
+    const SUPABASE_URL = "https://YOUR_SUPABASE_PROJECT_ID.supabase.co";
+    const SUPABASE_KEY = "YOUR_SUPABASE_ANON_KEY";
+    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    // Dynamic UI Helper
+    function toggleModal(id) {
+      document.getElementById(id).classList.toggle('hidden');
+    }
+
+    // 2. Fetch Products & Render Reviews dynamically
+    async function loadProducts() {
+      const { data: products, error } = await supabase.from('products').select('*');
+      const container = document.getElementById('product-grid');
+      
+      if(error || !products.length) {
+        // Fallback default rendering using static images if backend is unlinked
+        container.innerHTML = `
+          ${createCard('1', 'NeeDoh Nice Cube Squishy', 299.00, '3WqZew-C.jpg', 'Super solid sensory cube.')}
+          ${createCard('2', '4oz Salted Butter Squishy', 199.00, 'W1PfStnQ.jpg', 'Realistic slow-rising butter block.')}
+          ${createCard('3', 'Glitter Animal Mini Squishies', 149.00, 'Re6f0jDA.jpg', 'Sparkly sea animal squishy set.')}
+          ${createCard('4', 'Cute Bao Bun Squishy Set', 249.00, 'H-e_mojn.jpg', 'Kawaii dumpling stress balls.')}
+          ${createCard('5', 'Swiss Cheese Block Squishy', 179.00, 'TCBd-sMf.jpg', 'Soft textured cheese cube.')}
+        `;
+        return;
+      }
+
+      container.innerHTML = products.map(p => createCard(p.id, p.title, p.price, p.image_url, p.description)).join('');
+    }
+
+    function createCard(id, title, price, img, desc) {
+      return `
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-lg transition">
+          <div>
+            <img src="${img}" alt="${title}" class="h-48 w-full object-cover rounded-xl mb-4">
+            <h3 class="font-bold text-xl text-gray-900">${title}</h3>
+            <p class="text-sm text-gray-500 mb-2">${desc}</p>
+            <p class="text-2xl font-black text-[#FF4B82] mb-4">₱${price.toFixed(2)}</p>
+          </div>
+          <div class="space-y-3">
+            <button onclick="checkout('${title}', ${price})" class="w-full bg-gray-900 hover:bg-black text-white font-bold py-2 rounded-xl transition">
+              Buy Now (PayMongo)
+            </button>
+            <div class="border-t pt-2">
+              <span class="text-xs font-bold text-gray-400 uppercase">Rate Product</span>
+              <div class="flex gap-1 text-yellow-400 cursor-pointer mt-1" onclick="submitRating('${id}')">
+                ★ ★ ★ ★ ★
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // 3. PayMongo Checkout Integration
+    async function checkout(title, amount) {
+      alert(`Initiating PayMongo checkout session for: ${title} (₱${amount})`);
+      // Endpoint calling Vercel Serverless Function
+      const res = await fetch('/api/paymongo-checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title, amount: amount * 100 })
+      });
+      const data = await res.json();
+      if(data.checkoutUrl) window.location.href = data.checkoutUrl;
+    }
+
+    // 4. Registration Handling
+    document.getElementById('register-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('reg-email').value;
+      const pass = document.getElementById('reg-pass').value;
+      const gcash = document.getElementById('reg-gcash').value;
+
+      const { data, error } = await supabase.auth.signUp({ email, password: pass });
+      if(data.user) {
+        await supabase.from('profiles').insert([{ id: data.user.id, email, gcash_number: gcash }]);
+        alert('Registration successful!');
+        toggleModal('auth-modal');
+      } else {
+        alert('Error registering: ' + error.message);
+      }
+    });
+
+    // 5. Post Product Form Handling
+    document.getElementById('sell-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const title = document.getElementById('p-title').value;
+      const price = parseFloat(document.getElementById('p-price').value);
+      const image_url = document.getElementById('p-image').value;
+      const description = document.getElementById('p-desc').value;
+
+      const { error } = await supabase.from('products').insert([{ title, price, image_url, description }]);
+      if (!error) {
+        alert('Product listed successfully!');
+        loadProducts();
+      } else {
+        alert('Please login or configure Supabase keys to list products.');
+      }
+    });
+
+    // Rating placeholder
+    function submitRating(id) {
+      const rating = prompt("Enter rating (1 to 5 stars):", "5");
+      if(rating) alert(`Thank you! Submitted ${rating}-star rating.`);
+    }
+
+    // Initial Load
+    loadProducts();
+  </script>
+</body>
+</html>
